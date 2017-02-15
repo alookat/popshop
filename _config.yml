@@ -12,11 +12,12 @@ email: your-email@domain.com
 description: 'This is Pop Shop. What''s happening in NYC.
 
 '
-baseurl: 
-url: 
+baseurl:
+url:
 twitter_username: jekyllrb
 github_username: jekyll
 markdown: kramdown
+# theme: minima
 gems:
 - jekyll-feed
 exclude:
