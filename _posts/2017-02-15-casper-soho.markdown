@@ -1,13 +1,9 @@
 ---
 title: Casper
 date: 2017-02-15 20:05:00 Z
-categories:
-- jekyll
-- update
-- popup
-- semipermanent
 tags:
 - casper
+photos: /assets/casper-1.jpg
 layout: post
 ---
 
