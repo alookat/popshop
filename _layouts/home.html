@@ -4,22 +4,31 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Posts</h1>
+  <!-- <h1 class="page-heading">Posts</h1> -->
 
   {{ content }}
 
   <ul class="post-list">
     {% for post in site.posts %}
       <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+        <!-- <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span> -->
 
         <h2>
           <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-
         </h2>
-        {{ post.excerpt }}
-        {{ post.opening-hours }}
-        <img src="{{ post.photos }}" alt="">
+
+        <p>{{ post.address }}</p>
+
+        <p>Open date: {{ post.open-date | date: "%b %-d, %Y" }} </p>
+        <!-- {{ post.excerpt }} -->
+        <!-- {{ post.content }} -->
+        <ul>
+          {% for item in post.opening-hours %}
+          <li>{{ item.day }}: {{ item.open }} to {{ item.close }}</li>
+          {% endfor %}
+        </ul>
+
+        <img src="{{ site.url }}/{{ post.photos }}" alt="">
       </li>
     {% endfor %}
   </ul>
