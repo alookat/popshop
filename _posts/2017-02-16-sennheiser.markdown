@@ -8,7 +8,7 @@ open-date: 2016-09-09
 close-date:
 opening-hours:
   - day: Monday to Sunday
-    open: 11
-    close: 21
+    open: 11am
+    close: 9pm
 layout: post
 ---
