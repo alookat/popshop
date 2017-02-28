@@ -3,7 +3,14 @@ title: Google
 date: 2016-11-14 20:05:00 Z
 active: false
 address: 96 Spring St
-photos: /assets/google-1.jpg
+map-url: https://goo.gl/maps/BpuFDUfdGNK2
+photos:
+  - url: /assets/google-1.jpg
+    alt: Sennheiser store front
+  - url: /assets/google-2.jpg
+    alt: Sennheiser store front
+  - url: /assets/google-3.jpg
+    alt: Sennheiser store front
 open-date: 2016-10-01
 close-date:
 opening-hours:
@@ -14,11 +21,7 @@ opening-hours:
     open: 10
     close: 18
   - day: Sunday
-    open: nil
-    close: nil
+    open: closed
+    close: closed
 layout: post
 ---
-
-{{ post.address }}
-
-![image-title-here](/assets/google-1.jpg)
