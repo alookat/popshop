@@ -5,14 +5,36 @@ layout: default
 
   <header class="post-header">
     <h1 class="post-title" itemprop="name headline">{{ page.title | escape }}</h1>
-    <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}</p>
+    <p class="post-meta"><time datetime="{{ page.open-date | date_to_xmlschema }}" itemprop="datePublished">Open date: {{ page.open-date | date: "%b %-d, %Y" }}</time>{% if page.author %} • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}</p>
   </header>
 
   <div class="post-content" itemprop="articleBody">
+    <!-- Mirror what is shown in the homepage summary, with more photos -->
+    <p><a href="{{ page.map-url }}">{{ page.address }}</a></p>
+
+    <p>Open date: {{ page.open-date | date: "%b %-d, %Y" }} </p>
+
+    <ul>
+    {% for item in page.opening-hours %}
+
+      {% if item.open == "closed" or item.closed == "closed" %}
+      <li> {{ item.day }}: Closed</li>
+
+      {% else %}
+      <li>{{ item.day }}: {{ item.open }} to {{ item.close }}</li>
+      {% endif %}
+
+    {% endfor %}
+    </ul>
+
+
+
+
+    {% for item in page.photos %}
+    <img src="{{ item.url }}" alt="{{ item.alt }}">
+    {% endfor %}
+
+    <!-- Anything extra defined in actual post.md -->
     {{ content }}
   </div>
-
-  {% if site.disqus.shortname %}
-    {% include disqus_comments.html %}
-  {% endif %}
 </article>

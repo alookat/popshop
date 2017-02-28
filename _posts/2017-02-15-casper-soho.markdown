@@ -2,8 +2,15 @@
 title: Casper
 date: 2017-02-15 20:05:00 Z
 active: true
-address: 101 Spring St
-photos: /assets/casper-1.jpg
+address: 106 Spring St
+map-url: https://goo.gl/maps/qpvpLDaSf4y
+photos:
+  - url: /assets/casper-1.jpg
+    alt: Sennheiser store front
+  - url: /assets/casper-2.jpg
+    alt: Sennheiser store front
+  - url: /assets/casper-3.jpg
+    alt: Sennheiser store front
 open-date: 2016-09-09
 close-date:
 opening-hours:

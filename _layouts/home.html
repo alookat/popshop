@@ -11,38 +11,9 @@ layout: default
   <ul class="post-list">
     {% for post in site.posts %}
       {% if post.active %}
-      <li>
-        <!-- <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span> -->
-
-        <h2>
-          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-        </h2>
-
-        <p>{{ post.address }}</p>
-
-        <p>Open date: {{ post.open-date | date: "%b %-d, %Y" }} </p>
-        <!-- {{ post.excerpt }} -->
-        <!-- {{ post.content }} -->
-
-        <ul>
-        {% for item in post.opening-hours %}
-
-          {% if item.open == "closed" or item.closed == "closed" %}
-          <li> {{ item.day }}: Closed</li>
-
-          {% else %}
-          <li>{{ item.day }}: {{ item.open }} to {{ item.close }}</li>
-          {% endif %}
-
-        {% endfor %}
-        </ul>
-
-        <img src="{{ site.url }}/{{ post.photos }}" alt="">
-      </li>
+        {% include list.html %}
       {% endif %}
     {% endfor %}
   </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
 
 </div>
