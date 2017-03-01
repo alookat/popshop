@@ -15,6 +15,10 @@
   // Multiple markers: https://www.taniarascia.com/google-maps-apis-for-multiple-locations/
   // Standard Google Maps setup: https://developers.google.com/maps/documentation/javascript/tutorial
 
+  // Alternative tutorial: https://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
+
+  // Get LatLng from Address: http://www.latlong.net/convert-address-to-lat-long.html
+
   function initMap() {
 
     var broadway = {
@@ -53,6 +57,7 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
 
+    // https://developers.google.com/maps/documentation/javascript/infowindows
     var infowindow = new google.maps.InfoWindow({});
 
     var marker, i;
@@ -60,7 +65,8 @@
     for (i = 0; i < locations.length; i++) {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-  			map: map
+  			map: map,
+        // title: 'Uluru (Ayers Rock)'
       });
 
       google.maps.event.addListener(marker ,'click', (function (marker, i) {
