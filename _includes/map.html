@@ -9,6 +9,12 @@
   }
 </style>
 
+
+<script>
+
+</script>
+
+
 <div id="map"></div>
 
 <script>
@@ -19,12 +25,36 @@
 
   // Get LatLng from Address: http://www.latlong.net/convert-address-to-lat-long.html
 
+  // #2 Pull array Here
+
+  // #1 Push each post info, lat, long into an array here. In  JS?
+  // var posts = {{ site.posts | jsonify }}
+  // var posts = "hello"
+
+  // http://stackoverflow.com/questions/28142507/jekyll-liquid-tag-inside-javascript
+
+  {% capture posts %}
+  [
+  {% for post in site.posts %}
+  {
+  "title"    : "{{ post.title }}",
+  "lat"      : "{{ post.lat }}",
+  "long"      : "{{ post.long }}"
+  } {% if forloop.last %}{% else %},{% endif %}
+  {% endfor %}
+  ]
+  {% endcapture %}
+
+  var posts = {{ posts | strip_newlines}}
+
+  console.log(posts);
+
   function initMap() {
 
     var broadway = {
-  		info: '<strong>Chipotle on Broadway</strong><br>\
+  		info: '<strong>Post Title Here</strong><br>\
   					5224 N Broadway St<br> Chicago, IL 60640<br>\
-  					<a href="https://goo.gl/maps/jKNEDz4SyyH2">Get Directions</a>',
+  					<a href="#sennheiser">More</a>',
   		lat: 40.724230,
   		long: -74.001108
   	};
@@ -32,7 +62,7 @@
   	var belmont = {
   		info: '<strong>Chipotle on Belmont</strong><br>\
   					1025 W Belmont Ave<br> Chicago, IL 60657<br>\
-  					<a href="https://goo.gl/maps/PHfsWTvgKa92">Get Directions</a>',
+  					<a href="#casper">More</a>',
   		lat: 40.724924,
   		long: -74.001808
   	};
@@ -40,7 +70,7 @@
   	var sheridan = {
   		info: '<strong>Chipotle on Sheridan</strong><br>\r\
   					6600 N Sheridan Rd<br> Chicago, IL 60626<br>\
-  					<a href="https://goo.gl/maps/QGUrqZPsYp92">Get Directions</a>',
+  					<a href="#sennheiser">More</a>',
   		lat: 40.724020,
   		long: -74.001508
   	};
@@ -50,6 +80,12 @@
       [belmont.info, belmont.lat, belmont.long, 1],
       [sheridan.info, sheridan.lat, sheridan.long, 2],
     ];
+
+    // Testing the working array
+    // console.log(locations);
+    console.log(posts[0]);
+
+
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 40.724124, lng: -74.001108},
@@ -99,7 +135,10 @@
       google.maps.event.addListener(marker ,'click', (function (marker, i) {
         return function () {
           infowindow.setContent(locations[i][0]);
+          // infowindow.setContent(posts[i][0]);
           infowindow.open(map, marker);
+
+
         }
       })(marker, i));
     }

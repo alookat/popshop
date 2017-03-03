@@ -19,5 +19,7 @@ opening-hours:
   - day: Monday to Sunday
     open: 11am
     close: 9pm
+lat: 40.724924
+long: -74.001808
 layout: post
 ---
