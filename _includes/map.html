@@ -54,7 +54,34 @@
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 40.724124, lng: -74.001108},
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      // mapTypeId: google.maps.MapTypeId.ROADMAP
+      styles: [
+        {
+          "featureType": "poi.business",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.icon",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        }
+      ]
     });
 
     // https://developers.google.com/maps/documentation/javascript/infowindows
