@@ -9,52 +9,72 @@
   }
 </style>
 
+
+<script>
+
+</script>
+
+
 <div id="map"></div>
 
 <script>
   // Multiple markers: https://www.taniarascia.com/google-maps-apis-for-multiple-locations/
   // Standard Google Maps setup: https://developers.google.com/maps/documentation/javascript/tutorial
-
   // Alternative tutorial: https://wrightshq.com/playground/placing-multiple-markers-on-a-google-map-using-api-3/
-
   // Get LatLng from Address: http://www.latlong.net/convert-address-to-lat-long.html
+  // Jekyll to JSON: http://jekyll.tips/jekyll-casts/output-json/
+
 
   function initMap() {
 
-    var broadway = {
-  		info: '<strong>Chipotle on Broadway</strong><br>\
-  					5224 N Broadway St<br> Chicago, IL 60640<br>\
-  					<a href="https://goo.gl/maps/jKNEDz4SyyH2">Get Directions</a>',
-  		lat: 40.724230,
-  		long: -74.001108
-  	};
-
-  	var belmont = {
-  		info: '<strong>Chipotle on Belmont</strong><br>\
-  					1025 W Belmont Ave<br> Chicago, IL 60657<br>\
-  					<a href="https://goo.gl/maps/PHfsWTvgKa92">Get Directions</a>',
-  		lat: 40.724924,
-  		long: -74.001808
-  	};
-
-  	var sheridan = {
-  		info: '<strong>Chipotle on Sheridan</strong><br>\r\
-  					6600 N Sheridan Rd<br> Chicago, IL 60626<br>\
-  					<a href="https://goo.gl/maps/QGUrqZPsYp92">Get Directions</a>',
-  		lat: 40.724020,
-  		long: -74.001508
-  	};
-
-    var locations = [
-      [broadway.info, broadway.lat, broadway.long, 0],
-      [belmont.info, belmont.lat, belmont.long, 1],
-      [sheridan.info, sheridan.lat, sheridan.long, 2],
+    var posts = [
+      {% for post in site.posts %}
+        {% if post.active %}
+          {
+            "title":  "{{ post.title }}",
+            "lat":    "{{ post.lat }}",
+            "long":   "{{ post.long }}",
+            "address":" {{ post.address }}",
+            "id":     "#{{ post.title | downcase }}"
+          }
+          {% unless forloop.last %}, {% endunless %}
+        {% endif %}
+      {% endfor %}
     ];
+
+
 
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 40.724124, lng: -74.001108},
       zoom: 15,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      // mapTypeId: google.maps.MapTypeId.ROADMAP
+      styles: [
+        {
+          "featureType": "poi.business",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.icon",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "stylers": [
+            {
+              "visibility": "off"
+            }
+          ]
+        }
+      ]
     });
 
     // https://developers.google.com/maps/documentation/javascript/infowindows
@@ -62,16 +82,21 @@
 
     var marker, i;
 
-    for (i = 0; i < locations.length; i++) {
+    for (i = 0; i < posts.length; i++) {
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        position: new google.maps.LatLng(posts[i].lat, posts[i].long),
   			map: map,
-        // title: 'Uluru (Ayers Rock)'
+        title: posts[i].title,
       });
 
       google.maps.event.addListener(marker ,'click', (function (marker, i) {
         return function () {
-          infowindow.setContent(locations[i][0]);
+          contentString =
+            "<strong>" + posts[i].title + "</strong><br>"
+            + posts[i].address + "<br>"
+            + "<a href=" + posts[i].id +">More</a>";
+
+          infowindow.setContent(contentString);
           infowindow.open(map, marker);
         }
       })(marker, i));

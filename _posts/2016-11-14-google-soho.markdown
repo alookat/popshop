@@ -23,5 +23,7 @@ opening-hours:
   - day: Sunday
     open: closed
     close: closed
+lat: 40.724230
+long: -74.001108
 layout: post
 ---

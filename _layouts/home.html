@@ -4,7 +4,7 @@ layout: default
 
 <div class="home">
 
-  <h1 class="page-heading">Active Pop Ups!!</h1>
+  <h1 class="page-heading">Active Pop Ups</h1>
   {% include map.html %}
 
   <!-- {{ content }} -->
@@ -13,6 +13,7 @@ layout: default
     {% for post in site.posts %}
       {% if post.active %}
         {% include list.html %}
+      <!-- if no posts are active, display a "go to archive/submit a listing email" section instead -->
       {% endif %}
     {% endfor %}
   </ul>
