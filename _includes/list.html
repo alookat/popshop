@@ -25,7 +25,7 @@
 
   {% for item in post.photos %}
     {% if forloop.first %}
-    <img src="{{ site.url }}{{ item.url }}" alt="{{ item.alt }}">
+    <img src="{{ base.url }}{{ item.url }}" alt="{{ item.alt }}">
     {% endif %}
   {% endfor %}
 

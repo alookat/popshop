@@ -31,7 +31,8 @@ layout: default
 
 
     {% for item in page.photos %}
-    <img src="{{ site.url }}{{ item.url }}" alt="{{ item.alt }}">
+    <!-- base.url or site.url -->
+    <img src="{{ base.url }}{{ item.url }}" alt="{{ item.alt }}">
     {% endfor %}
 
     <!-- Anything extra defined in actual post.md -->
