@@ -27,6 +27,7 @@
 
   function initMap() {
 
+    // Push *active* posts information into an array
     var posts = [
       {% for post in site.posts %}
         {% if post.active %}
@@ -42,11 +43,10 @@
       {% endfor %}
     ];
 
-
-
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 40.724124, lng: -74.001108},
-      zoom: 15,
+    // Standard Google Map declaration from documentation
+    var map = new google.maps.Map(document.getElementById("map"), {
+      center: {lat: 40.724124, lng: -74.001108}, // Overridden by map.fitBounds(bounds);
+      zoom: 15, // Overridden by map.fitBounds(bounds);
       // mapTypeId: google.maps.MapTypeId.ROADMAP
       styles: [
         {
@@ -80,15 +80,26 @@
     // https://developers.google.com/maps/documentation/javascript/infowindows
     var infowindow = new google.maps.InfoWindow({});
 
-    var marker, i;
+    var marker;
+    var i;
 
-    for (i = 0; i < posts.length; i++) {
+    // Declare empty bounds
+    var bounds = new google.maps.LatLngBounds();
+
+    // Create markers
+    for (i = 0; i < posts.length; i+=1) {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(posts[i].lat, posts[i].long),
-  			map: map,
-        title: posts[i].title,
+        map: map,
+        title: posts[i].title
       });
 
+      // Use marker positons to bounds
+      bounds.extend(marker.position);
+      // Fit map to bounds (override center and zoom within map)
+      map.fitBounds(bounds);
+
+      // Info windows
       google.maps.event.addListener(marker ,'click', (function (marker, i) {
         return function () {
           contentString =
@@ -98,13 +109,18 @@
 
           infowindow.setContent(contentString);
           infowindow.open(map, marker);
-        }
+        };
       })(marker, i));
     }
+
+    // Override our map zoom level once our fitBounds function runs (Make sure it only runs once)
+    /*
+    var boundsListener = google.maps.event.addListener((map), 'bounds_changed', function(event) {
+        this.setZoom(15);
+        google.maps.event.removeListener(boundsListener);
+    });
+    */
   }
-
-
-
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5ufpuvR5hkwNIJW9ks4XZMrAgoIPtL0c&callback=initMap"
 async defer></script>
